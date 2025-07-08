@@ -4,7 +4,9 @@ import com.example.demo.dto.author.AuthorDTO;
 import com.example.demo.dto.member.MemberDTO;
 import com.example.demo.dto.response.ApiResponse;
 import com.example.demo.request.author.StoreAuthorRequest;
+import com.example.demo.request.author.UpdateAuthorRequest;
 import com.example.demo.request.member.StoreMemberRequest;
+import com.example.demo.request.member.UpdateMemberRequest;
 import com.example.demo.service.member.MemberService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -41,5 +43,12 @@ public class MemberController {
         MemberDTO member = memberService.postMember(storeMemberRequest);
         ApiResponse<MemberDTO> response = new ApiResponse<>("Member created successfully", "success", HttpStatus.CREATED.value(), member);
         return new ResponseEntity<ApiResponse<MemberDTO>>(response, HttpStatus.CREATED);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ApiResponse<MemberDTO>> putAuthor(@PathVariable("id") Long id, @Valid @RequestBody UpdateMemberRequest updateMemberRequest) {
+        MemberDTO member = memberService.putMember(id, updateMemberRequest);
+        ApiResponse<MemberDTO> response = new ApiResponse<>("Member updated successfully", "success", HttpStatus.OK.value(), member);
+        return new ResponseEntity<ApiResponse<MemberDTO>>(response, HttpStatus.OK);
     }
 }
