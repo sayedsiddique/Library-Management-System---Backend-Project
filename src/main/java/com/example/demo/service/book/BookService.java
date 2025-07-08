@@ -9,6 +9,9 @@ import com.example.demo.repository.author.AuthorRepository;
 import com.example.demo.repository.book.BookRepository;
 import com.example.demo.request.book.StoreBookRequest;
 import com.example.demo.request.book.UpdateBookRequest;
+import com.example.demo.specification.book.BookSpecification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +28,9 @@ public class BookService {
         this.authorRepository = authorRepository;
     }
 
-    public List<BookDTO> getBooks() {
-        return bookRepository.findAll()
+    public List<BookDTO> getBooks(String title, String isbn, String author, Pageable pageable) {
+        Page<Book> pageResult = bookRepository.findAll(BookSpecification.search(title, isbn, author), pageable);
+        return pageResult
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());

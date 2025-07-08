@@ -6,6 +6,7 @@ import com.example.demo.request.book.StoreBookRequest;
 import com.example.demo.request.book.UpdateBookRequest;
 import com.example.demo.service.book.BookService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,8 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<BookDTO>>> getBooks() {
-        List<BookDTO> books = bookService.getBooks();
+    public ResponseEntity<ApiResponse<List<BookDTO>>> getBooks(@RequestParam(required = false) String title, @RequestParam(required = false) String isbn, Pageable pageable) {
+        List<BookDTO> books = bookService.getBooks(title, isbn, null, pageable);
         ApiResponse<List<BookDTO>> response = new ApiResponse<>("Books retrieved successfully", "success", HttpStatus.OK.value(), books);
         return new ResponseEntity<ApiResponse<List<BookDTO>>>(response, HttpStatus.OK);
     }
@@ -53,5 +54,12 @@ public class BookController {
     public ResponseEntity<Void> deleteBook(@PathVariable("id") Long id) {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<List<BookDTO>>> searchBooks(@RequestParam(required = false) String title, @RequestParam(required = false) String isbn, @RequestParam(required = false) String author, Pageable pageable) {
+        List<BookDTO> books = bookService.getBooks(title, isbn, author, pageable);
+        ApiResponse<List<BookDTO>> response = new ApiResponse<>("Books search results", "success", HttpStatus.OK.value(), books);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
