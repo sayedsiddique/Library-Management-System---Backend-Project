@@ -3,13 +3,13 @@ package com.example.demo.controller.member;
 import com.example.demo.dto.author.AuthorDTO;
 import com.example.demo.dto.member.MemberDTO;
 import com.example.demo.dto.response.ApiResponse;
+import com.example.demo.request.author.StoreAuthorRequest;
+import com.example.demo.request.member.StoreMemberRequest;
 import com.example.demo.service.member.MemberService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +34,12 @@ public class MemberController {
         MemberDTO member = memberService.getMember(id);
         ApiResponse<MemberDTO> response = new ApiResponse<>("Member retrieved successfully", "success", HttpStatus.OK.value(), member);
         return new ResponseEntity<ApiResponse<MemberDTO>>(response, HttpStatus.OK);
+    }
+
+    @PostMapping()
+    public ResponseEntity<ApiResponse<MemberDTO>> postMember(@Valid @RequestBody StoreMemberRequest storeMemberRequest) {
+        MemberDTO member = memberService.postMember(storeMemberRequest);
+        ApiResponse<MemberDTO> response = new ApiResponse<>("Member created successfully", "success", HttpStatus.CREATED.value(), member);
+        return new ResponseEntity<ApiResponse<MemberDTO>>(response, HttpStatus.CREATED);
     }
 }
