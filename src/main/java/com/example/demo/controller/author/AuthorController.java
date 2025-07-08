@@ -2,13 +2,12 @@ package com.example.demo.controller.author;
 
 import com.example.demo.dto.author.AuthorDTO;
 import com.example.demo.dto.response.ApiResponse;
+import com.example.demo.request.author.StoreAuthorRequest;
 import com.example.demo.service.author.AuthorService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +32,12 @@ public class AuthorController {
         AuthorDTO author = authorService.getAuthor(id);
         ApiResponse<AuthorDTO> response = new ApiResponse<>("Author retrieved successfully", "success", HttpStatus.OK.value(), author);
         return new ResponseEntity<ApiResponse<AuthorDTO>>(response, HttpStatus.OK);
+    }
+
+    @PostMapping()
+    public ResponseEntity<ApiResponse<AuthorDTO>> postAuthor(@Valid @RequestBody StoreAuthorRequest storeAuthorRequest) {
+        AuthorDTO author = authorService.postAuthor(storeAuthorRequest);
+        ApiResponse<AuthorDTO> response = new ApiResponse<>("Author created successfully", "success", HttpStatus.CREATED.value(), author);
+        return new ResponseEntity<ApiResponse<AuthorDTO>>(response, HttpStatus.CREATED);
     }
 }
