@@ -6,6 +6,7 @@ import com.example.demo.service.author.AuthorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,12 @@ public class AuthorController {
         List<AuthorDTO> authors = authorService.getAuthors();
         ApiResponse<List<AuthorDTO>> response = new ApiResponse<>("Authors retrieved successfully", "success", HttpStatus.OK.value(), authors);
         return new ResponseEntity<ApiResponse<List<AuthorDTO>>>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ApiResponse<AuthorDTO>> getAuthor(@PathVariable("id")Long id) {
+        AuthorDTO author = authorService.getAuthor(id);
+        ApiResponse<AuthorDTO> response = new ApiResponse<>("Author retrieved successfully", "success", HttpStatus.OK.value(), author);
+        return new ResponseEntity<ApiResponse<AuthorDTO>>(response, HttpStatus.OK);
     }
 }

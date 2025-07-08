@@ -1,6 +1,7 @@
 package com.example.demo.service.author;
 
 import com.example.demo.dto.author.AuthorDTO;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.author.Author;
 import com.example.demo.repository.author.AuthorRepository;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,12 @@ public class AuthorService {
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    public AuthorDTO getAuthor(Long id) {
+        return authorRepository.findById(id)
+                .map(this::convertToDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("Author with id: " + id + " does not exists"));
     }
 
     private AuthorDTO convertToDTO(Author author) {
