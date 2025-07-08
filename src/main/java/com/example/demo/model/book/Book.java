@@ -1,11 +1,14 @@
 package com.example.demo.model.book;
 
+import com.example.demo.model.author.Author;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -21,6 +24,14 @@ public class Book {
     private Integer publicationYear;
     private Integer availableCopies;
     private Integer totalCopies;
+    @JsonManagedReference
+    @ManyToMany
+    @JoinTable(
+        name = "author_book",  // Join table name
+        joinColumns = @JoinColumn(name = "book_id"),
+        inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private List<Author> authors;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
@@ -72,6 +83,14 @@ public class Book {
 
     public void setTotalCopies(int totalCopies) {
         this.totalCopies = totalCopies;
+    }
+
+    public List<Author> getAuthors() {
+        return this.authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public LocalDateTime getCreatedAt() {

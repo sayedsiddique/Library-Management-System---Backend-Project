@@ -1,11 +1,14 @@
 package com.example.demo.model.author;
 
+import com.example.demo.model.book.Book;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "authors")
@@ -20,6 +23,9 @@ public class Author {
     @Column(columnDefinition = "TEXT")
     private String bio;
     private LocalDate birthDate;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "authors")
+    private List<Book> books;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp
@@ -65,6 +71,14 @@ public class Author {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public List<Book> getBooks() {
+        return this.books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     public LocalDateTime getCreatedAt() {

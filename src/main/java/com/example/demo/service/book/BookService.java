@@ -3,21 +3,26 @@ package com.example.demo.service.book;
 import com.example.demo.dto.book.BookDTO;
 import com.example.demo.exception.DuplicateEmailException;
 import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.author.Author;
 import com.example.demo.model.book.Book;
+import com.example.demo.repository.author.AuthorRepository;
 import com.example.demo.repository.book.BookRepository;
 import com.example.demo.request.book.StoreBookRequest;
 import com.example.demo.request.book.UpdateBookRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class BookService {
     private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
 
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
+        this.authorRepository = authorRepository;
     }
 
     public List<BookDTO> getBooks() {
@@ -44,6 +49,8 @@ public class BookService {
         book.setPublicationYear(storeBookRequest.publicationYear());
         book.setAvailableCopies(storeBookRequest.availableCopies());
         book.setTotalCopies(storeBookRequest.totalCopies());
+        List<Author> authors = authorRepository.findAllById(storeBookRequest.authorIds());
+        book.setAuthors(authors);
         return this.convertToDTO(bookRepository.save(book));
     }
 
@@ -61,6 +68,8 @@ public class BookService {
         book.setPublicationYear(updateBookRequest.publicationYear() != null ? updateBookRequest.publicationYear() : book.getPublicationYear());
         book.setAvailableCopies(updateBookRequest.availableCopies() != null ? updateBookRequest.availableCopies() : book.getAvailableCopies());
         book.setTotalCopies(updateBookRequest.totalCopies() != null ? updateBookRequest.totalCopies() : book.getTotalCopies());
+        List<Author> authors = (updateBookRequest.authorIds() != null) ? authorRepository.findAllById(updateBookRequest.authorIds()) : book.getAuthors();
+        book.setAuthors(authors);
         return this.convertToDTO(bookRepository.save(book));
     }
 
@@ -80,6 +89,7 @@ public class BookService {
                 book.getPublicationYear(),
                 book.getAvailableCopies(),
                 book.getTotalCopies(),
+                book.getAuthors(),
                 book.getCreatedAt(),
                 book.getUpdatedAt()
         );
