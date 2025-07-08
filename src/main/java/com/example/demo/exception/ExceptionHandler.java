@@ -18,6 +18,12 @@ public class ExceptionHandler {
         return new ResponseEntity<ApiError>(error, HttpStatus.NOT_FOUND);
     }
 
+    @org.springframework.web.bind.annotation.ExceptionHandler(DuplicateEmailException.class)
+    public ResponseEntity<ApiError> handle(DuplicateEmailException exception, HttpServletRequest request) {
+        ApiError error = new ApiError(exception.getMessage(), "error", HttpStatus.CONFLICT.value());
+        return new ResponseEntity<ApiError>(error, HttpStatus.CONFLICT);
+    }
+
     @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handle(MethodArgumentNotValidException exception, HttpServletRequest request) {
         Map<String, String> validationErrors = exception.getBindingResult()
