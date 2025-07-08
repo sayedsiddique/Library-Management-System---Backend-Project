@@ -85,6 +85,13 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
+    public List<BookDTO> getAuthorBooks(Long id) {
+        return bookRepository.findByAuthors_Id(id)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     private BookDTO convertToDTO(Book book) {
         return new BookDTO(
                 book.getId(),
