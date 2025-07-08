@@ -3,6 +3,7 @@ package com.example.demo.controller.author;
 import com.example.demo.dto.author.AuthorDTO;
 import com.example.demo.dto.response.ApiResponse;
 import com.example.demo.request.author.StoreAuthorRequest;
+import com.example.demo.request.author.UpdateAuthorRequest;
 import com.example.demo.service.author.AuthorService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -39,5 +40,12 @@ public class AuthorController {
         AuthorDTO author = authorService.postAuthor(storeAuthorRequest);
         ApiResponse<AuthorDTO> response = new ApiResponse<>("Author created successfully", "success", HttpStatus.CREATED.value(), author);
         return new ResponseEntity<ApiResponse<AuthorDTO>>(response, HttpStatus.CREATED);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ApiResponse<AuthorDTO>> putAuthor(@PathVariable("id") Long id, @Valid @RequestBody UpdateAuthorRequest updateAuthorRequest) {
+        AuthorDTO author = authorService.putAuthor(id, updateAuthorRequest);
+        ApiResponse<AuthorDTO> response = new ApiResponse<>("Author updated successfully", "success", HttpStatus.OK.value(), author);
+        return new ResponseEntity<ApiResponse<AuthorDTO>>(response, HttpStatus.OK);
     }
 }
