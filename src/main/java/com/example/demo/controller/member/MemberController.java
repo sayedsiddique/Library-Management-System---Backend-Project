@@ -51,4 +51,10 @@ public class MemberController {
         ApiResponse<MemberDTO> response = new ApiResponse<>("Member updated successfully", "success", HttpStatus.OK.value(), member);
         return new ResponseEntity<ApiResponse<MemberDTO>>(response, HttpStatus.OK);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteMember(@PathVariable("id") Long id) {
+        memberService.deleteMember(id);
+        return ResponseEntity.noContent().build();
+    }
 }

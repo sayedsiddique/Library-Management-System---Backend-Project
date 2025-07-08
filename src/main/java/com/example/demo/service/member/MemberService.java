@@ -63,6 +63,14 @@ public class MemberService {
         return this.convertToDTO(memberRepository.save(member));
     }
 
+    public void deleteMember(Long id) {
+        boolean exists = memberRepository.existsById(id);
+        if(! exists) {
+            throw new ResourceNotFoundException("Member with id: " + id + " does not exists");
+        }
+        memberRepository.deleteById(id);
+    }
+
     private MemberDTO convertToDTO(Member member) {
         return new MemberDTO(
                 member.getId(),
