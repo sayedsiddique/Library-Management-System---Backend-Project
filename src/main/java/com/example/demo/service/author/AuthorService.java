@@ -62,6 +62,14 @@ public class AuthorService {
         return this.convertToDTO(authorRepository.save(author));
     }
 
+    public void deleteAuthor(Long id) {
+        boolean exists = authorRepository.existsById(id);
+        if(! exists) {
+            throw new ResourceNotFoundException("Author with id: " + id + " does not exists");
+        }
+        authorRepository.deleteById(id);
+    }
+
     private AuthorDTO convertToDTO(Author author) {
         return new AuthorDTO(
             author.getId(),

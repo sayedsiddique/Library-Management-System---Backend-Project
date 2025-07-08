@@ -48,4 +48,10 @@ public class AuthorController {
         ApiResponse<AuthorDTO> response = new ApiResponse<>("Author updated successfully", "success", HttpStatus.OK.value(), author);
         return new ResponseEntity<ApiResponse<AuthorDTO>>(response, HttpStatus.OK);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteAuthor(@PathVariable("id") Long id) {
+        authorService.deleteAuthor(id);
+        return ResponseEntity.noContent().build();
+    }
 }
