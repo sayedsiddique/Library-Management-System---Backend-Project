@@ -124,8 +124,8 @@ Interactive API documentation available at `/swagger-ui.html`.
 
 #### Postman Collection
 
-A complete Postman collection with example requests is available in the `/docs` folder:
-- Import the collection: `library-management-system.postman_collection.json`
+A complete Postman collection with example requests is available:
+- Import the collection: `V1.postman_collection.json`
 - Includes pre-configured requests for all endpoints
 - Contains example request bodies and expected responses
 - Environment variables for easy testing
@@ -145,31 +145,13 @@ The application uses an in-memory H2 database with pre-populated sample data:
 
 The application includes the following main entities:
 
+![DB Diagram](dbdiagram.png)
+
 - **Books**: `id`, `title`, `isbn`, `publication_year`, `available_copies`, `total_copies`
 - **Authors**: `id`, `name`, `email`, `bio`, `birth_date`
 - **Members**: `id`, `name`, `email`, `phone`, `status`, `membership_date`
 - **Borrow Transactions**: `id`, `member_id`, `book_id`, `borrow_date`, `due_date`, `return_date`, `status`
 - **Author-Book**: Join table for many-to-many relationship
-
-## 🧪 Testing
-
-### Run Tests
-
-```bash
-# Using Maven wrapper
-.\mvnw test
-
-# Using system Maven
-mvn test
-```
-
-### Test Coverage
-
-The application includes basic Spring Boot tests. You can extend the test suite by adding:
-
-- Unit tests for services
-- Integration tests for controllers
-- Repository tests
 
 ## 📁 Project Structure
 
