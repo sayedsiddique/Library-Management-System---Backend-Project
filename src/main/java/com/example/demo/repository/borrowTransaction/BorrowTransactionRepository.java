@@ -15,4 +15,6 @@ public interface BorrowTransactionRepository extends JpaRepository<BorrowTransac
 
     @Query("SELECT COUNT(bt) FROM BorrowTransaction bt WHERE bt.member.id = :memberId AND bt.status = :status")
     long countByMemberIdAndStatus(@Param("memberId") Long memberId, @Param("status") Status status);
+
+    List<BorrowTransaction> findByMemberId(Long memberId);
 }
