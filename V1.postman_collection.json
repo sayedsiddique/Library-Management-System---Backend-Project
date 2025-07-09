@@ -65,7 +65,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Author 1\",\r\n    \"email\": \"author1@gmail.com\",\r\n    \"bio\": \"Author 1's Bio\",\r\n    \"birthDate\": \"2003-10-02\"\r\n}"
+							"raw": "{\r\n    \"name\": \"Author 2\",\r\n    \"email\": \"author2@gmail.com\",\r\n    \"bio\": \"Author 2's Bio\",\r\n    \"birthDate\": \"2003-10-02\"\r\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/authors",
@@ -87,7 +87,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Author 6 Updated\",\r\n    \"email\": \"author6updated@gmail.com\",\r\n    \"bio\": \"Author 6's Updated Bio\",\r\n    \"birthDate\": \"2003-10-02\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Author 1\",\r\n    \"email\": \"author1@gmail.com\",\r\n    \"bio\": \"Author 1's Bio\",\r\n    \"birthDate\": \"2003-10-02\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -95,14 +95,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/authors/6",
+							"raw": "{{url}}/api/authors/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"authors",
-								"6"
+								"1"
 							]
 						}
 					},
@@ -176,14 +176,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/books/1",
+							"raw": "{{url}}/api/books/2",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"books",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -229,7 +229,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Book 1\",\r\n    \"authorIds\": [1, 2]\r\n}",
+							"raw": "{\r\n    \"title\": \"Book 2\",\r\n    \"authorIds\": [2]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -251,19 +251,19 @@
 					"response": []
 				},
 				{
-					"name": "A Book",
+					"name": "A Author",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/books/1",
+							"raw": "{{url}}/api/books/2",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"books",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -275,7 +275,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/books/search?author=George Orwell",
+							"raw": "{{url}}/api/books/search?author=Author 1",
 							"host": [
 								"{{url}}"
 							],
@@ -287,7 +287,7 @@
 							"query": [
 								{
 									"key": "author",
-									"value": "George Orwell"
+									"value": "Author 1"
 								}
 							]
 						}
@@ -370,7 +370,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Member 1\",\r\n    \"email\": \"member1updated@gmail.com\",\r\n    \"phone\": \"9001190012\",\r\n    \"status\": \"ACTIVE\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Member 1\",\r\n    \"email\": \"member1@gmail.com\",\r\n    \"phone\": \"9001190011\",\r\n    \"membershipDate\": \"2025-07-09T21:14:30\",\r\n    \"status\": \"INACTIVE\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -378,14 +378,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/members/31",
+							"raw": "{{url}}/api/members/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"members",
-								"31"
+								"1"
 							]
 						}
 					},
@@ -401,14 +401,14 @@
 							"raw": "{\r\n    \"name\": \"Member 1\",\r\n    \"email\": \"member1@gmail.com\",\r\n    \"phone\": \"9001190011\",\r\n    \"membershipDate\": \"2025-07-09T21:14:30\",\r\n    \"status\": \"INACTIVE\"\r\n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/members/2",
+							"raw": "{{url}}/api/members/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"members",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -420,14 +420,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/members/2/borrowed-books",
+							"raw": "{{url}}/api/members/1/borrowed-books",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"members",
-								"2",
+								"1",
 								"borrowed-books"
 							]
 						}
@@ -446,7 +446,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"bookId\": \"2\",\r\n    \"memberId\": \"2\",\r\n    \"borrowDate\": \"2025-07-09\",\r\n    \"dueDate\": \"2025-07-10\"\r\n}",
+							"raw": "{\r\n    \"bookId\": \"2\",\r\n    \"memberId\": \"1\",\r\n    \"borrowDate\": \"2025-07-09\",\r\n    \"dueDate\": \"2025-07-10\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
