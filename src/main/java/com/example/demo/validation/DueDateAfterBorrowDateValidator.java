@@ -15,8 +15,11 @@ public class DueDateAfterBorrowDateValidator implements ConstraintValidator<DueD
         LocalDate borrowDate = value.borrowDate();
         LocalDate dueDate = value.dueDate();
 
-        // If dueDate is after borrowDate, the validation passes
-        return borrowDate != null && dueDate != null && dueDate.isAfter(borrowDate);
+        if (dueDate == null) {
+            return true;
+        }
+
+        return borrowDate != null && dueDate.isAfter(borrowDate);
     }
 
     @Override

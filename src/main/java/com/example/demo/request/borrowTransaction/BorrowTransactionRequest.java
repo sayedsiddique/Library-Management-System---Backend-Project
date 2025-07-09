@@ -11,6 +11,5 @@ public record BorrowTransactionRequest(@NotNull(message = "Book ID is required")
         @NotNull(message = "Member ID is required") Long memberId,
         @NotNull(message = "Borrow date is required")
         @NotFutureDate() LocalDate borrowDate,
-        @NotNull(message = "Due date is required")
         LocalDate dueDate) {
 }
