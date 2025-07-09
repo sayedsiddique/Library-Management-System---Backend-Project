@@ -4,5 +4,5 @@ import com.example.demo.model.borrowTransaction.Status;
 
 import java.time.LocalDate;
 
-public record BorrowTransactionDTO(Long id, Long bookId, String bookTitle, Long memberId, String memberName, LocalDate borrowDate, LocalDate dueDate, LocalDate returnDate, Status status, boolean isOverdue) {
+public record BorrowTransactionDTO(Long id, Long bookId, String bookTitle, Long memberId, String memberName, String memberEmail, LocalDate borrowDate, LocalDate dueDate, LocalDate returnDate, Status status, boolean isOverdue) {
 }

@@ -17,3 +17,19 @@ spring:
 
   jpa:
     defer-datasource-initialization: true
+
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: 9a2b4d3570e18b
+    password: f0108f0325ada1
+    properties:
+      ssl:
+        enable: false
+      starttls:
+        enable: true
+
+  task:
+    scheduling:
+      pool:
+        size: 3
