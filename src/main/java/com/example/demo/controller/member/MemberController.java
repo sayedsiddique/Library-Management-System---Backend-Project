@@ -8,6 +8,7 @@ import com.example.demo.request.author.UpdateAuthorRequest;
 import com.example.demo.request.member.StoreMemberRequest;
 import com.example.demo.request.member.UpdateMemberRequest;
 import com.example.demo.service.member.MemberService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/members")
+@Tag(name = "Members", description = "Member management operations")
 public class MemberController {
     private final MemberService memberService;
 
