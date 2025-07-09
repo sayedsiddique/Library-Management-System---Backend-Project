@@ -223,3 +223,7 @@ The application includes comprehensive error handling for:
 - Due dates must be after borrow dates
 - ISBN format validation (ISBN-10 or ISBN-13)
 - Email uniqueness for authors and members
+
+## ✨ Bonus Features Implemented
+
+- Rate limiting
