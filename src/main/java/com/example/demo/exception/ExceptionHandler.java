@@ -38,6 +38,30 @@ public class ExceptionHandler {
         return new ResponseEntity<ApiError>(error, HttpStatus.BAD_REQUEST);
     }
 
+@org.springframework.web.bind.annotation.ExceptionHandler(BookNotAvailableException.class)
+    public ResponseEntity<ApiError> handle(BookNotAvailableException exception, HttpServletRequest request) {
+        ApiError error = new ApiError(exception.getMessage(), "error", HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<ApiError>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(BorrowLimitExceededException.class)
+    public ResponseEntity<ApiError> handle(BorrowLimitExceededException exception, HttpServletRequest request) {
+        ApiError error = new ApiError(exception.getMessage(), "error", HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<ApiError>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(DuplicateBorrowException.class)
+    public ResponseEntity<ApiError> handle(DuplicateBorrowException exception, HttpServletRequest request) {
+        ApiError error = new ApiError(exception.getMessage(), "error", HttpStatus.CONFLICT.value());
+        return new ResponseEntity<ApiError>(error, HttpStatus.CONFLICT);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(InvalidDateException.class)
+    public ResponseEntity<ApiError> handle(InvalidDateException exception, HttpServletRequest request) {
+        ApiError error = new ApiError(exception.getMessage(), "error", HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<ApiError>(error, HttpStatus.BAD_REQUEST);
+    }
+
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handle(Exception exception, HttpServletRequest request) {
         ApiError error = new ApiError(exception.getMessage(), "error", HttpStatus.INTERNAL_SERVER_ERROR.value());
