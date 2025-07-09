@@ -227,3 +227,4 @@ The application includes comprehensive error handling for:
 ## ✨ Bonus Features Implemented
 
 - Rate limiting
+- Job for sending email notifications for due dates
