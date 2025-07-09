@@ -151,26 +151,6 @@ The application includes the following main entities:
 - **Borrow Transactions**: `id`, `member_id`, `book_id`, `borrow_date`, `due_date`, `return_date`, `status`
 - **Author-Book**: Join table for many-to-many relationship
 
-## 🧪 Testing
-
-### Run Tests
-
-```bash
-# Using Maven wrapper
-.\mvnw test
-
-# Using system Maven
-mvn test
-```
-
-### Test Coverage
-
-The application includes basic Spring Boot tests. You can extend the test suite by adding:
-
-- Unit tests for services
-- Integration tests for controllers
-- Repository tests
-
 ## 📁 Project Structure
 
 ```
