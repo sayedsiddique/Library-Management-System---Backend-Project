@@ -103,6 +103,13 @@ public class BorrowTransactionService {
                 .collect(Collectors.toList());
     }
 
+    public List<BorrowTransactionDTO> getTransactionsByDueDate(LocalDate dueDate) {
+        return borrowTransactionRepository.findByDueDate(dueDate)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     private void validateBookAvailability(Book book) {
         if (book.getAvailableCopies() <= 0) {
             throw new BookNotAvailableException("No copies available for book: " + book.getTitle());
@@ -133,6 +140,7 @@ public class BorrowTransactionService {
                 transaction.getBook().getTitle(),
                 transaction.getMember().getId(),
                 transaction.getMember().getName(),
+                transaction.getMember().getEmail(),
                 transaction.getBorrowDate(),
                 transaction.getDueDate(),
                 transaction.getReturnDate(),
