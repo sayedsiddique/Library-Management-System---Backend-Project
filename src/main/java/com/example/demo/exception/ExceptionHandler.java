@@ -24,6 +24,12 @@ public class ExceptionHandler {
         return new ResponseEntity<ApiError>(error, HttpStatus.CONFLICT);
     }
 
+    @org.springframework.web.bind.annotation.ExceptionHandler(DuplicateIsbnException.class)
+    public ResponseEntity<ApiError> handle(DuplicateIsbnException exception, HttpServletRequest request) {
+        ApiError error = new ApiError(exception.getMessage(), "error", HttpStatus.CONFLICT.value());
+        return new ResponseEntity<ApiError>(error, HttpStatus.CONFLICT);
+    }
+
     @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handle(MethodArgumentNotValidException exception, HttpServletRequest request) {
         Map<String, String> validationErrors = exception.getBindingResult()
@@ -38,7 +44,7 @@ public class ExceptionHandler {
         return new ResponseEntity<ApiError>(error, HttpStatus.BAD_REQUEST);
     }
 
-@org.springframework.web.bind.annotation.ExceptionHandler(BookNotAvailableException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(BookNotAvailableException.class)
     public ResponseEntity<ApiError> handle(BookNotAvailableException exception, HttpServletRequest request) {
         ApiError error = new ApiError(exception.getMessage(), "error", HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<ApiError>(error, HttpStatus.BAD_REQUEST);
@@ -60,6 +66,12 @@ public class ExceptionHandler {
     public ResponseEntity<ApiError> handle(InvalidDateException exception, HttpServletRequest request) {
         ApiError error = new ApiError(exception.getMessage(), "error", HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<ApiError>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ApiError> handle(IllegalStateException exception, HttpServletRequest request) {
+        ApiError error = new ApiError(exception.getMessage(), "error", HttpStatus.CONFLICT.value());
+        return new ResponseEntity<ApiError>(error, HttpStatus.CONFLICT);
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)

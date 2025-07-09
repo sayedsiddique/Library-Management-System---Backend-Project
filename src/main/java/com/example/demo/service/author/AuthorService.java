@@ -4,6 +4,7 @@ import com.example.demo.dto.author.AuthorDTO;
 import com.example.demo.exception.DuplicateEmailException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.author.Author;
+import com.example.demo.model.book.Book;
 import com.example.demo.repository.author.AuthorRepository;
 import com.example.demo.request.author.StoreAuthorRequest;
 import com.example.demo.request.author.UpdateAuthorRequest;
@@ -63,10 +64,12 @@ public class AuthorService {
     }
 
     public void deleteAuthor(Long id) {
-        boolean exists = authorRepository.existsById(id);
-        if(! exists) {
-            throw new ResourceNotFoundException("Author with id: " + id + " does not exists");
+        Author author = authorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Author with id: " + id + " does not exists"));
+        for (Book book : author.getBooks()) {
+            book.getAuthors().remove(author);
         }
+        author.getBooks().clear();
         authorRepository.deleteById(id);
     }
 

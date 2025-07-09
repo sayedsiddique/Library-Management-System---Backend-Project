@@ -92,8 +92,12 @@ public class BorrowTransactionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction with id: " + id + " does not exists"));
     }
 
-    public List<BorrowTransactionDTO> getMemberBorrowTransactions(Long memberId) {
-        return borrowTransactionRepository.findByMemberId(memberId)
+    public List<BorrowTransactionDTO> getMemberBorrowTransactions(Long id) {
+        if (!memberRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Member with id: " + id + " does not exist");
+        }
+
+        return borrowTransactionRepository.findByMemberId(id)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());

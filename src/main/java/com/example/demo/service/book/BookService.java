@@ -2,6 +2,7 @@ package com.example.demo.service.book;
 
 import com.example.demo.dto.book.BookDTO;
 import com.example.demo.exception.DuplicateEmailException;
+import com.example.demo.exception.DuplicateIsbnException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.author.Author;
 import com.example.demo.model.book.Book;
@@ -64,7 +65,7 @@ public class BookService {
 
         if (!book.getIsbn().equals(updateBookRequest.isbn())
                 && bookRepository.existsByIsbn(updateBookRequest.isbn())) {
-            throw new DuplicateEmailException("ISBN already taken");
+            throw new DuplicateIsbnException("ISBN already taken");
         }
 
         book.setTitle(updateBookRequest.title() != null ? updateBookRequest.title() : book.getTitle());
@@ -78,14 +79,20 @@ public class BookService {
     }
 
     public void deleteBook(Long id) {
-        boolean exists = bookRepository.existsById(id);
-        if(! exists) {
-            throw new ResourceNotFoundException("Book with id: " + id + " does not exists");
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book with id: " + id + " does not exists"));
+        for (Author author : book.getAuthors()) {
+            author.getBooks().remove(book);
         }
+        book.getAuthors().clear();
         bookRepository.deleteById(id);
     }
 
     public List<BookDTO> getAuthorBooks(Long id) {
+        if (!authorRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Author with id: " + id + " does not exist");
+        }
+
         return bookRepository.findByAuthors_Id(id)
                 .stream()
                 .map(this::convertToDTO)
