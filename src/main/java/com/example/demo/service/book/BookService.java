@@ -79,14 +79,20 @@ public class BookService {
     }
 
     public void deleteBook(Long id) {
-        boolean exists = bookRepository.existsById(id);
-        if(! exists) {
-            throw new ResourceNotFoundException("Book with id: " + id + " does not exists");
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book with id: " + id + " does not exists"));
+        for (Author author : book.getAuthors()) {
+            author.getBooks().remove(book);
         }
+        book.getAuthors().clear();
         bookRepository.deleteById(id);
     }
 
     public List<BookDTO> getAuthorBooks(Long id) {
+        if (!authorRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Author with id: " + id + " does not exist");
+        }
+
         return bookRepository.findByAuthors_Id(id)
                 .stream()
                 .map(this::convertToDTO)
