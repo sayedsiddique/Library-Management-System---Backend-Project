@@ -124,8 +124,8 @@ Interactive API documentation available at `/swagger-ui.html`.
 
 #### Postman Collection
 
-A complete Postman collection with example requests is available in the `/docs` folder:
-- Import the collection: `library-management-system.postman_collection.json`
+A complete Postman collection with example requests is available:
+- Import the collection: `V1.postman_collection.json`
 - Includes pre-configured requests for all endpoints
 - Contains example request bodies and expected responses
 - Environment variables for easy testing
@@ -144,6 +144,8 @@ The application uses an in-memory H2 database with pre-populated sample data:
 ### Database Schema
 
 The application includes the following main entities:
+
+![DB Diagram](dbdiagram.png)
 
 - **Books**: `id`, `title`, `isbn`, `publication_year`, `available_copies`, `total_copies`
 - **Authors**: `id`, `name`, `email`, `bio`, `birth_date`
